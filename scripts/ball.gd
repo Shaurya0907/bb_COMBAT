@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var cooldown_counter: Label = $"../hud/cooldown_counter"
 @onready var cooldown_timer: Timer = $"../hud/cooldown_timer"
 @onready var cooldown_end: Timer = $"../hud/cooldown_end"
-
+@onready var anim_player: AnimatedSprite2D = $AnimatedSprite2D
 
 var speed = 50
 var has_jumped = false
@@ -52,9 +52,11 @@ func _process(delta: float) -> void:
 
 #SIGNALS
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.name == "player":
+	if body.name == "ball":
 		velocity.y = -250
-		
+		anim_player.play("bounce")
+		await anim_player.animation_finished
+		anim_player.play("idle")
 
 
 func _on_cooldown_timer_timeout() -> void:
@@ -65,6 +67,7 @@ func _on_cooldown_timer_timeout() -> void:
 func _on_cooldown_end_timeout() -> void:
 	has_jumped = false
 	cooldown_timer.stop()
+	cooldown_counter.text = '10'
 	jump_counter.text = '3'
 	cooldown_counter.hide()
 	cooldown.hide()
