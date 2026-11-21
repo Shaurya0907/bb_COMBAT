@@ -19,6 +19,8 @@ size = Vector2(122, 106)
 [node name="player" type="CharacterBody2D" unique_id=887462116]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=739486181]
+texture_filter = 1
+texture_repeat = 1
 scale = Vector2(0.18771929, 0.1877193)
 sprite_frames = SubResource("SpriteFrames_v15d6")
 animation = &"idle"
