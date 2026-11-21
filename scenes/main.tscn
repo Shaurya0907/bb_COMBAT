@@ -184,8 +184,8 @@ theme_override_fonts/font = ExtResource("3_tbgi4")
 text = "Survive 60 seconds"
 
 [connection signal="body_entered" from="Node2D/bg/Area2D" to="ball" method="_on_area_2d_body_entered"]
-[connection signal="timeout" from="hud/cooldown_timer" to="ball" method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="hud/cooldown_timer" to="ball" method="_on_timer_timeout"]
+[connection signal="timeout" from="hud/cooldown_timer" to="ball" method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="hud/cooldown_end" to="ball" method="_on_cooldown_end_timeout"]
 [connection signal="timeout" from="survive_timer" to="." method="_on_survive_timer_timeout"]
 [connection signal="timeout" from="survive_timer_end" to="." method="_on_survive_timer_end_timeout"]
