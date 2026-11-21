@@ -3,6 +3,8 @@ extends CharacterBody2D
 @onready var cooldown: Label = $"../hud/cooldown"
 @onready var cooldown_counter: Label = $"../hud/cooldown_counter"
 @onready var cooldown_timer: Timer = $"../hud/cooldown_timer"
+@onready var cooldown_end: Timer = $"../hud/cooldown_end"
+
 
 var speed = 50
 var has_jumped = false
@@ -36,24 +38,18 @@ func _process(delta: float) -> void:
 		
 		
 	if jump_counter.text == '0':
-		pass
-	
-	if jump2 and has_jumped:
+		cooldown.show()
+		cooldown_counter.show()
+		if cooldown_timer.is_stopped():
+			cooldown_timer.start()
+		if cooldown_end.is_stopped():
+			cooldown_end.start()
+		has_jumped = true
+	if jump2:
 		if jump_counter.text != '0':
 			jump_counter.text = str(int(jump_counter.text) - 1)
 		jump2 = false
 
-
-
-#FUNCTIONS
-func _cooldown(time):
-		cooldown.show()
-		cooldown_counter.show()
-		cooldown_timer.start()
-		
-		
-		
-		
 #SIGNALS
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "player":
@@ -62,4 +58,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 
 func _on_cooldown_timer_timeout() -> void:
-	pass # Replace with function body.
+	if cooldown_counter.text != '0':
+		cooldown_counter.text = str(int(cooldown_counter.text) - 1)
+
+
+func _on_cooldown_end_timeout() -> void:
+	has_jumped = false
+	cooldown_timer.stop()
+	jump_counter.text = '3'
+	cooldown_counter.hide()
+	cooldown.hide()

@@ -117,8 +117,14 @@ offset_right = 129.0
 offset_bottom = 31.0
 text = "3"
 
-[node name="cooldown_timer" type="Timer" parent="hud" unique_id=1886149178]
-one_shot = true
+[node name="cooldown_timer" type="Timer" parent="hud" unique_id=1463869878]
+process_callback = 0
+
+[node name="cooldown_end" type="Timer" parent="hud" unique_id=225776368]
+process_callback = 0
+wait_time = 10.0
 
 [connection signal="body_entered" from="Node2D/bg/Area2D" to="player" method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="hud/cooldown_timer" to="player" method="_on_timer_timeout"]
 [connection signal="timeout" from="hud/cooldown_timer" to="player" method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="hud/cooldown_end" to="player" method="_on_cooldown_end_timeout"]
